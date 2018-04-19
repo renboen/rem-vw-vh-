@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vieport</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .hello {
+            background: rgb(240, 239, 245);
+            position: absolute;
+            width: 7.5rem;
+            height: 100%;
+        }
+        
+        header {
+            width: 7.5rem;
+            height: 1.26rem;
+        }
+        
+        h1 {
+            width: 7.5rem;
+            height: .88rem;
+            background: rgb(53, 52, 58);
+            line-height: .88rem;
+            font-size: .36rem;
+            color: white;
+            font-weight: normal;
+            text-align: center;
+        }
+        
+        h2 {
+            width: 7.5rem;
+            height: .38rem;
+            background: rgb(53, 52, 58);
+        }
+        
+        #rt {
+            width: 3.75rem;
+            height: 2rem;
+            background: yellow;
+        }
+        
+        .content {
+            position: absolute;
+            height: calc(100% - 2.26rem);
+            overflow: scroll;
+            width: 100%;
+        }
+        
+        [data-dpr="3"] ul {
+            border-top: .34px solid #ccc;
+        }
+        
+        [data-dpr="2"] ul {
+            border-top: .5px solid #ccc;
+        }
+        
+        [data-dpr="1"] ul {
+            border-top: .5px solid #ccc;
+        }
+        
+        ul {
+            margin: .42rem 0;
+            border-top: 1px solid #ccc;
+            box-sizing: border-box;
+            background: rgb(255, 255, 255)
+        }
+        
+        ul:nth-child(1) {
+            margin: .24rem 0 .42rem 0;
+        }
+        
+        ul>li {
+            width: 7.5rem;
+            height: .88rem;
+            line-height: .88rem;
+            font-size: .32rem;
+            text-align: left;
+            text-indent: .3rem;
+        }
+        
+        li:not(:only-child) {
+            width: 7.2rem;
+            height: .88rem;
+            margin-left: .3rem;
+            text-indent: 0;
+        }
+        
+        [data-dpr="3"] li:nth-child(2) {
+            border-top: 0.3334px solid #ccc;
+        }
+        
+        [data-dpr="2"] li:nth-child(2) {
+            border-top: 0.5px solid #ccc;
+        }
+        
+        [data-dpr="1"] li:nth-child(2) {
+            border-top: 1px solid #ccc;
+        }
+        /* li:nth-child(2) {
+            border-top: .01rem solid #ccc;
+        } */
+        
+        [data-dpr="3"] footer {
+            border-top: 0.3334px solid #ccc;
+        }
+        
+        [data-dpr="2"] footer {
+            border-top: 0.5px solid #ccc;
+        }
+        
+        [data-dpr="1"] footer {
+            border-top: 1px solid #ccc;
+        }
+        
+        footer {
+            width: 7.5rem;
+            height: 1rem;
+            background: rgb(248, 248, 250);
+            /* border-top: 1px solid #ccc; */
+            /*no*/
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+        
+        footer>div {
+            flex: 1;
+            line-height: 1rem;
+            font-size: .24rem;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hello">
+        <header>
+            <h2></h2>
+            <h1>发现</h1>
+        </header>
+        <div class="content">
+            <ul>
+                <li>朋友圈</li>
+            </ul>
+
+            <ul>
+                <li>扫一扫</li>
+                <li>摇一摇</li>
+            </ul>
+
+            <ul>
+                <li>看一看</li>
+                <li>搜一搜</li>
+            </ul>
+            <ul>
+                <li>附近的人</li>
+                <li>漂流瓶</li>
+            </ul>
+            <ul>
+                <li>购物</li>
+                <li>游戏</li>
+            </ul>
+            <ul>
+                <li>小程序</li>
+            </ul>
+
+
+        </div>
+        <footer>
+            <div>微信</div>
+            <div>通讯录</div>
+            <div>发现</div>
+            <div>我</div>
+        </footer>
+
+    </div>
+</body>
+<script>
+    (function() {
+        // dpr = 物理像素 / 设备独立像素;对于iphone6；物理像素是750;dpr=2;在设置width=device-width后设备物理像
+        //等于docEl.getBoundingClientRect().width==document.documentElement.clientWidth=window.innerWidth
+        let dpr = window.devicePixelRatio;
+        let doc = window.document;
+        let docEl = doc.documentElement;
+        let deviceWidth = document.documentElement.clientWidth; //设备独立像素
+        console.log(deviceWidth)
+        console.log(dpr)
+        let physicalWidth = deviceWidth * dpr; //物理像素
+        console.log(physicalWidth)
+        let baseFontSize = 7.5; //
+        console.log(baseFontSize)
+        let htmlFontSize = deviceWidth / baseFontSize;
+        console.log(htmlFontSize.toFixed(6))
+        console.log(dpr)
+            //设置html data-dpr属性，方便针对不同分辨定义样式;由于安卓dpr比较混乱,所以采用;
+        if (dpr >= 3) {
+            dpr = 3
+        } else if (dpr > 1) {
+            dpr = 2
+        } else {
+            dpr = 1
+        }
+        console.log(dpr)
+        docEl.setAttribute('data-dpr', dpr);
+        if (deviceWidth > 768) {
+            //如果大于设备独立像素大于768；也就是物理像素宽度大于1536px时可以访问pc网站，网易采用的也类似。
+            htmlFontSize = 102.4;
+        };
+        if (doc.readyState === 'complete') {
+            docEl.style.fontSize = htmlFontSize.toFixed(6) + 'px';
+        } else {
+            doc.addEventListener('DOMContentLoaded', function(e) {
+                docEl.style.fontSize = htmlFontSize.toFixed(6) + 'px';
+            }, false);
+        }
+    })()
+</script>
+
+</html>
